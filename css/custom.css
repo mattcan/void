@@ -1,0 +1,24 @@
+.site {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-list {
+    flex: 1;
+}
+
+@media(min-width: 768px) {
+    .navbar {
+        max-width: 800px;
+    }
+}

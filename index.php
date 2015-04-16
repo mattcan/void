@@ -1,6 +1,6 @@
 <?php 
 
-$sitename = "SomeWebsite";
+$sitename = "Matthew Cantelon";
 $blogpagename = "blog";
 
 error_reporting(0);
@@ -29,26 +29,35 @@ list($pageheader, $pagecontent, $pagetitle, $pageauthor, $pagedate, $pagenomenu,
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?php echo (trim($pagetitle) ? "$sitename - $pagetitle" : "$sitename")?></title>
-  <base href="<?php echo rtrim(dirname(parse_url($_SERVER['PHP_SELF'], PHP_URL_PATH)), '/') . '/'; ?>">  
-  <link rel="stylesheet" type="text/css" href="style.css">
+  <meta name="description" content="A blog and portfolio all about software development.">
+  <meta name="author" content="Matthew Cantelon">
+  
+  <!--<base href="<?php echo rtrim(dirname(parse_url($_SERVER['PHP_SELF'], PHP_URL_PATH)), '/') . '/'; ?>">  -->
+  <link rel="stylesheet" type="text/css" href="css/normalize.css">
+  <link rel="stylesheet" type="text/css" href="css/skeleton.css">
+  <link rel="stylesheet" type="text/css" href="css/custom.css">
 </head>
-<body>
-<div class="header">
-  <div class="logo"><a href="."><?php echo $sitename;?></a></div>
-  <ul class="menu">
-    <?php
-    $pages = glob("./page/*.{txt,md}", GLOB_BRACE);
-    foreach($pages as $page)
-    {
-      list($menupageheader, $menupagecontent, $menupagetitle, $menupageauthor, $menupagedate, $menupagenomenu, $menupageurl) = getpage($page);
-      if (!$menupagenomenu) { echo "<li><a href=\"$menupageurl\">$menupagetitle</a></li>"; }
-    }
-    ?>      
-  </ul>
-</div>
-<div class="main">
+<body class="site">
+
+  <nav class="navbar">
+    <ul class="navbar-list">
+
+      <?php
+        $pages = glob("./page/*.{txt,md}", GLOB_BRACE);
+        foreach($pages as $page)
+        {
+          list($menupageheader, $menupagecontent, $menupagetitle, $menupageauthor, $menupagedate, $menupagenomenu, $menupageurl) = getpage($page);
+          if (!$menupagenomenu) { echo '<li class="navbar-item"><a class="navbar-link" href="' . $menupageurl . '">' . $menupagetitle . '</a></li>'; }
+        }
+      ?>    
+
+    </ul>
+
+  </nav>
+
+  <section class="main">
 
 <?php
 require 'Parsedown.php';
@@ -75,10 +84,11 @@ if ($requestedpage === $blogpagename)
 
 ?>
 
-</div>
-<div class="footer">
-  <div class="left"><a href="">© <?php echo date('Y') . " " . $sitename; ?></a></div>
-  <div class="right">Powered by <a href="http://www.thisisvoid.org">Void</a>.</div>
-</div>
+  </section>
+
+  <section class="footer">
+    <div class="left"><a href="">© <?php echo date('Y') . " " . $sitename; ?></a></div>
+    <div class="right">Powered by <a href="http://www.thisisvoid.org">Void</a>.</div>
+  </section>
 </body>
 </html>
